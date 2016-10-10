@@ -107,17 +107,19 @@ func (r *Resource) Copy() *Resource {
 // ResourceLifecycle is used to store the lifecycle tuning parameters
 // to allow customized behavior
 type ResourceLifecycle struct {
-	CreateBeforeDestroy bool     `mapstructure:"create_before_destroy"`
-	PreventDestroy      bool     `mapstructure:"prevent_destroy"`
-	IgnoreChanges       []string `mapstructure:"ignore_changes"`
+	CreateBeforeDestroy  bool     `mapstructure:"create_before_destroy"`
+	CreateWithoutDestroy bool     `mapstructure:"create_without_destroy"`
+	PreventDestroy       bool     `mapstructure:"prevent_destroy"`
+	IgnoreChanges        []string `mapstructure:"ignore_changes"`
 }
 
 // Copy returns a copy of this ResourceLifecycle
 func (r *ResourceLifecycle) Copy() *ResourceLifecycle {
 	n := &ResourceLifecycle{
-		CreateBeforeDestroy: r.CreateBeforeDestroy,
-		PreventDestroy:      r.PreventDestroy,
-		IgnoreChanges:       make([]string, len(r.IgnoreChanges)),
+		CreateBeforeDestroy:  r.CreateBeforeDestroy,
+		CreateWithoutDestroy: r.CreateWithoutDestroy
+		PreventDestroy:       r.PreventDestroy,
+		IgnoreChanges:        make([]string, len(r.IgnoreChanges)),
 	}
 	copy(n.IgnoreChanges, r.IgnoreChanges)
 	return n
